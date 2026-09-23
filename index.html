@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CS Exchange Hub — University of Birmingham</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#FBF9F9; --surface:#FFFFFF; --ink:#1F1A1C; --muted:#6B5F64; --line:#E6DADF;
+  --claret:#7D0744; --claret-ink:#7D0744; --tint:#F6EAF0; --chip:#F1E4EA; --focus:#B4335F;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#17121490; --bg:#171214; --surface:#221B1E; --ink:#F3ECEF; --muted:#B9A9B0; --line:#3A2E33;
+    --claret:#E38BB0; --claret-ink:#F0A6C5; --tint:#2B1F25; --chip:#33262C; --focus:#F0A6C5; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#171214; --surface:#221B1E; --ink:#F3ECEF; --muted:#B9A9B0; --line:#3A2E33;
+  --claret:#E38BB0; --claret-ink:#F0A6C5; --tint:#2B1F25; --chip:#33262C; --focus:#F0A6C5; color-scheme:dark;
+}
+*{box-sizing:border-box} img{max-width:100%} [hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:15px;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding-block:28px 64px;padding-inline:20px}
+header{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--claret-ink);font-weight:600}
+h1{font-family:"Source Serif 4",Georgia,"Times New Roman",serif;font-weight:600;font-size:clamp(30px,5vw,44px);line-height:1.05;margin:0;text-wrap:balance}
+.lede{color:var(--muted);max-width:62ch;margin:0}
+.search{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:18px 0 8px}
+.search input{flex:1;border:0;background:transparent;font:inherit;color:var(--ink);outline:none;min-width:0}
+.search input:focus-visible{outline:2px solid var(--focus);outline-offset:4px;border-radius:4px}
+.emerg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0 26px}
+.emerg div{background:var(--claret);color:#fff;border-radius:12px;padding:12px 14px}
+.emerg b{display:block;font-family:"Source Serif 4",Georgia,serif;font-size:24px;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.emerg span{font-size:12px;opacity:.9}
+nav.jump{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+nav.jump a{font-size:13px;font-weight:500;color:var(--claret-ink);background:var(--chip);border-radius:999px;padding:6px 12px;text-decoration:none}
+nav.jump a:hover,nav.jump a:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+section{margin-bottom:34px}
+section h2{font-family:"Source Serif 4",Georgia,serif;font-weight:600;font-size:24px;margin:0 0 4px;text-wrap:balance}
+section .sub{color:var(--muted);margin:0 0 14px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.card h3{margin:0;font-size:15px;font-weight:600}
+.card p{margin:0;color:var(--muted);font-size:13.5px}
+.card a.link{color:var(--claret-ink);font-weight:500;text-decoration:none;font-size:14px;word-break:break-word}
+.card a.link:hover{text-decoration:underline}
+.card a.link:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:3px}
+.copy{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.copy code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:var(--tint);padding:3px 7px;border-radius:6px;color:var(--ink);user-select:all}
+.copy button{font:inherit;font-size:12px;font-weight:600;color:var(--claret-ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:3px 10px;cursor:pointer}
+.copy button:hover{background:var(--tint)}
+.copy button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.tag{display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--claret-ink);font-weight:600}
+.hidden-by-search{display:none}
+footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px;margin-top:20px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:999px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">University of Birmingham · School of Computer Science</div>
+  <h1>CS Exchange Hub</h1>
+  <p class="lede">Every link, email and phone number from the International &amp; Exchange Student Induction, in one place. Bookmark this page — it is your starting point for the year.</p>
+</header>
+
+<div class="search" role="search">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+  <input id="q" type="search" placeholder="Search — e.g. timetable, visa, GP, bus, wellbeing" aria-label="Search the hub" autocomplete="off">
+</div>
+
+<div class="emerg" aria-label="Emergency numbers">
+  <div><b>999</b><span>Police · fire · ambulance (emergency)</span></div>
+  <div><b>101</b><span>Police (non-emergency)</span></div>
+  <div><b>111</b><span>NHS medical advice (non-emergency)</span></div>
+  <div><b>0121 414 4444</b><span>Campus Security — 24/7 emergency</span></div>
+</div>
+
+<nav class="jump" aria-label="Sections">
+  <a href="#people">Your people</a><a href="#study">Studying</a><a href="#money">Money</a><a href="#safety">Safety</a><a href="#wellbeing">Wellbeing</a><a href="#careers">Careers</a><a href="#involved">Get involved</a><a href="#apps">Apps</a><a href="#resources">Resources</a>
+</nav>
+
+<section id="people">
+  <h2>Your people</h2>
+  <p class="sub">Who to ask for what. If in doubt, email the Director of Overseas Exchange and you will be pointed to the right person.</p>
+  <div class="grid">
+    <div class="card"><span class="tag">Academic · exchange</span><h3>Director of Overseas Exchange — Dr Mohammed Bahja</h3><p>Module choices, learning agreements, transcripts, anything about your exchange.</p><div class="copy"><code>m.bahja@bham.ac.uk</code><button type="button" data-copy="m.bahja@bham.ac.uk">Copy</button></div></div>
+    <div class="card"><span class="tag">Admin · registration</span><h3>Education Support Team (ESO)</h3><p>Registration, timetable problems, extensions, absence. Ground floor of the Computer Science building (Y9).</p><div class="copy"><code>ug-cs@contacts.bham.ac.uk</code><button type="button" data-copy="ug-cs@contacts.bham.ac.uk">Copy</button></div><div class="copy"><code>msc-cs@contacts.bham.ac.uk</code><button type="button" data-copy="msc-cs@contacts.bham.ac.uk">Copy</button></div><p>Use ug-cs if you take undergraduate modules, msc-cs if you take Master's modules.</p></div>
+    <div class="card"><span class="tag">Wellbeing</span><h3>CS Wellbeing Team</h3><p>Confidential support, extenuating circumstances, anything affecting your studies.</p><div class="copy"><code>cswelfare@contacts.bham.ac.uk</code><button type="button" data-copy="cswelfare@contacts.bham.ac.uk">Copy</button></div></div>
+    <div class="card"><span class="tag">Events · community</span><h3>Student Experience (School events)</h3><p>Socials, trips and School events.</p><div class="copy"><code>csstudentexperience@contacts.bham.ac.uk</code><button type="button" data-copy="csstudentexperience@contacts.bham.ac.uk">Copy</button></div></div>
+    <div class="card"><span class="tag">Visa · immigration</span><h3>International Student Team</h3><p>Visa advice, working rights, travel letters. Walk-in at the Aston Webb Student Hub.</p><a class="link" href="https://intranet.birmingham.ac.uk/student/international/index.aspx" target="_blank" rel="noopener">intranet.birmingham.ac.uk/student/international</a></div>
+    <div class="card"><span class="tag">Anything else</span><h3>Student Hub</h3><p>Aston Webb C Block · Mon–Fri 9–5 (Wed from 10). "Where do I start?" questions welcome.</p><div class="copy"><code>0121 414 5130</code><button type="button" data-copy="0121 414 5130">Copy</button></div></div>
+    <div class="card"><span class="tag">College</span><h3>EPS International Team</h3><p>College-level exchange and international enquiries.</p><div class="copy"><code>eps-international@contacts.bham.ac.uk</code><button type="button" data-copy="eps-international@contacts.bham.ac.uk">Copy</button></div></div>
+  </div>
+</section>
+
+<section id="study">
+  <h2>Studying</h2>
+  <p class="sub">The systems you will use every day.</p>
+  <div class="grid">
+    <div class="card"><h3>Welcome hub</h3><p>Start here: essential tasks, events, arrival information.</p><a class="link" href="https://www.birmingham.ac.uk/welcome" target="_blank" rel="noopener">birmingham.ac.uk/welcome</a></div>
+    <div class="card"><h3>Canvas</h3><p>Your virtual learning environment: materials, recordings, submissions, marks. Also available as the "Canvas Student" app.</p><a class="link" href="https://canvas.bham.ac.uk" target="_blank" rel="noopener">canvas.bham.ac.uk</a></div>
+    <div class="card"><h3>MyUoB app — your timetable</h3><p>Timetable, attendance, library and email on your phone.</p><a class="link" href="https://apps.apple.com/gb/app/myuob/id1462294596" target="_blank" rel="noopener">App Store</a><a class="link" href="https://play.google.com/store/apps/details?id=com.mydaycloud.app.birmingham" target="_blank" rel="noopener">Google Play</a><a class="link" href="https://intranet.birmingham.ac.uk/student/myuob/myuob.aspx" target="_blank" rel="noopener">About MyUoB</a></div>
+    <div class="card"><h3>MyUoB on the web</h3><p>Same timetable on a bigger screen.</p><a class="link" href="https://myuob.bham.ac.uk/" target="_blank" rel="noopener">myuob.bham.ac.uk</a></div>
+    <div class="card"><h3>Campus map</h3><p>Find your rooms: Computer Science is building Y9 (Yellow zone).</p><a class="link" href="https://www.birmingham.ac.uk/documents/university/edgbaston-campus-map.pdf" target="_blank" rel="noopener">Edgbaston campus map (PDF)</a><a class="link" href="https://www.birmingham.ac.uk/contact/directions" target="_blank" rel="noopener">Directions and maps</a></div>
+    <div class="card"><h3>Module descriptions</h3><p>Credits, level, semester, assessment and pre-requisites for every CS module.</p><a class="link" href="https://program-and-modules-handbook.bham.ac.uk/webhandbooks/WebHandbooks-control-servlet?Action=getProgramList&pgDeptId=016&pgDdesc=Computer%20Science" target="_blank" rel="noopener">Programme and module handbook</a></div>
+    <div class="card"><h3>Module-choice form</h3><p>Complete this if you have not yet confirmed your modules with us.</p><a class="link" href="https://forms.office.com/e/Ka5eKmgTEF" target="_blank" rel="noopener">forms.office.com/e/Ka5eKmgTEF</a></div>
+    <div class="card"><h3>IT Service Desk — 24/7</h3><p>Passwords, Wi-Fi (eduroam), Authenticator, software.</p><a class="link" href="https://itservicedesk.bham.ac.uk" target="_blank" rel="noopener">itservicedesk.bham.ac.uk</a><div class="copy"><code>0121 414 7171</code><button type="button" data-copy="0121 414 7171">Copy</button></div></div>
+    <div class="card"><h3>Library Services</h3><p>Main Library, study spaces, academic skills.</p><a class="link" href="https://intranet.birmingham.ac.uk/as/libraryservices/index.aspx" target="_blank" rel="noopener">Library Services</a></div>
+  </div>
+</section>
+
+<section id="money">
+  <h2>Money</h2>
+  <p class="sub">Budget in week one, check your bank app weekly.</p>
+  <div class="grid">
+    <div class="card"><h3>Living costs at Birmingham</h3><p>The University's own estimates for rent, food, travel and extras.</p><a class="link" href="https://www.birmingham.ac.uk/study/student-experience/advice-support/money-advice/living-costs" target="_blank" rel="noopener">Living costs guide</a><a class="link" href="https://www.birmingham.ac.uk/study/student-experience/advice-support/money-advice" target="_blank" rel="noopener">Money advice &amp; Student Support Fund</a></div>
+    <div class="card"><h3>Visa money requirement (GOV.UK)</h3><p>The official living-cost figure used for Student visas outside London.</p><a class="link" href="https://www.gov.uk/student-visa/money" target="_blank" rel="noopener">gov.uk/student-visa/money</a></div>
+    <div class="card"><h3>Opening a UK bank account</h3><p>Download your proof-of-study letter first.</p><a class="link" href="https://intranet.birmingham.ac.uk/student/financial-support/uk-bank-accounts.aspx" target="_blank" rel="noopener">UK bank accounts guide</a></div>
+    <div class="card"><h3>Buses — student tickets</h3><p>National Express West Midlands nBus student fares; load onto the NX app or a Swift card.</p><a class="link" href="https://nxbus.co.uk/west-midlands/tickets-prices/student-bus-tickets" target="_blank" rel="noopener">Student bus tickets</a><a class="link" href="https://intranet.birmingham.ac.uk/student/travelling-to-campus/travelling-by-bus.aspx" target="_blank" rel="noopener">Buses to campus (UoB discount)</a></div>
+    <div class="card"><h3>Trains — 16–25 Railcard</h3><p>A third off rail fares; full-time students 26+ are eligible too.</p><a class="link" href="https://www.railcard.co.uk/16-25-railcard/" target="_blank" rel="noopener">railcard.co.uk</a></div>
+    <div class="card"><h3>Council tax exemption</h3><p>Full-time students in all-student households pay no council tax.</p><a class="link" href="https://www.gov.uk/council-tax/discounts-for-full-time-students" target="_blank" rel="noopener">gov.uk council tax for students</a></div>
+    <div class="card"><h3>Working while you study</h3><p>Visa work-hour rules and minimum wage rates.</p><a class="link" href="https://www.ukcisa.org.uk/student-advice/working/student-work" target="_blank" rel="noopener">UKCISA: working during studies</a><a class="link" href="https://www.gov.uk/national-minimum-wage-rates" target="_blank" rel="noopener">National Minimum Wage rates</a></div>
+  </div>
+</section>
+
+<section id="safety">
+  <h2>Safety</h2>
+  <p class="sub">Birmingham is a friendly city; a few habits keep it that way.</p>
+  <div class="grid">
+    <div class="card"><h3>Campus Security</h3><p>Emergency 0121 414 4444 (24/7) · Non-emergency 0121 414 3000 · Campus Police team 0121 414 8999.</p><a class="link" href="https://intranet.birmingham.ac.uk/student/community-safety-and-security/index.aspx" target="_blank" rel="noopener">Community safety and security</a></div>
+    <div class="card"><h3>SafeZone app</h3><p>One tap for emergency, first aid or security anywhere on campus; check-in timer for walking home.</p><a class="link" href="https://intranet.birmingham.ac.uk/student/community-safety-and-security/safezone-app.aspx" target="_blank" rel="noopener">About SafeZone</a></div>
+    <div class="card"><h3>Report + Support</h3><p>Harassment, hate crime, spiking, sexual misconduct — report with your name or anonymously.</p><a class="link" href="https://reportandsupport.birmingham.ac.uk/" target="_blank" rel="noopener">reportandsupport.birmingham.ac.uk</a></div>
+    <div class="card"><h3>Scams targeting students</h3><p>Fake Home Office / police / embassy calls, rental fraud, tuition-fee "discounts". Report to Action Fraud 0300 123 2040.</p><a class="link" href="https://intranet.birmingham.ac.uk/student/Advice-on-scams.aspx" target="_blank" rel="noopener">UoB advice on scams</a><a class="link" href="https://www.actionfraud.police.uk/" target="_blank" rel="noopener">actionfraud.police.uk</a></div>
+    <div class="card"><h3>West Midlands Police — Safer Students</h3><p>Student safety guide from the local police force.</p><a class="link" href="https://saferstudents.west-midlands.police.uk/" target="_blank" rel="noopener">saferstudents.west-midlands.police.uk</a></div>
+  </div>
+</section>
+
+<section id="wellbeing">
+  <h2>Wellbeing &amp; health</h2>
+  <p class="sub">Free, confidential, used by thousands of students every year.</p>
+  <div class="grid">
+    <div class="card"><h3>UBHeard — 24/7, 365 days</h3><p>Immediate, confidential support by phone, live chat or the Wisdom app.</p><div class="copy"><code>0800 917 9379</code><button type="button" data-copy="0800 917 9379">Copy</button></div><a class="link" href="https://www.intranet.birmingham.ac.uk/student/your-wellbeing/mental-health/ubheard.aspx" target="_blank" rel="noopener">About UBHeard</a></div>
+    <div class="card"><h3>Your wellbeing at Birmingham</h3><p>Mental Health &amp; Wellbeing Service, Time to Talk, Disability Service.</p><a class="link" href="https://intranet.birmingham.ac.uk/student/your-wellbeing/index.aspx" target="_blank" rel="noopener">Wellbeing services</a><a class="link" href="https://intranet.birmingham.ac.uk/student/urgent-support.aspx" target="_blank" rel="noopener">Urgent support</a></div>
+    <div class="card"><h3>CS Wellbeing Team</h3><p>Your School's own wellbeing officers.</p><div class="copy"><code>cswelfare@contacts.bham.ac.uk</code><button type="button" data-copy="cswelfare@contacts.bham.ac.uk">Copy</button></div></div>
+    <div class="card"><h3>Register with a doctor (GP)</h3><p>University Medical Practice, 5 Pritchatts Road, B15 2QU. Register in your first week.</p><div class="copy"><code>0121 687 3055</code><button type="button" data-copy="0121 687 3055">Copy</button></div><a class="link" href="https://intranet.birmingham.ac.uk/student/taking-care-of-yourself/registering-with-a-doctor.aspx" target="_blank" rel="noopener">How to register</a></div>
+    <div class="card"><h3>NHS</h3><p>How the NHS works, symptoms, 111 online, the NHS App.</p><a class="link" href="https://www.nhs.uk" target="_blank" rel="noopener">nhs.uk</a></div>
+    <div class="card"><h3>Guild Advice</h3><p>Free, independent advice on housing contracts, money and academic appeals.</p><div class="copy"><code>0121 415 9990</code><button type="button" data-copy="0121 415 9990">Copy</button></div><a class="link" href="https://www.guildofstudents.com/support/guildadvice/" target="_blank" rel="noopener">guildofstudents.com/support</a></div>
+  </div>
+</section>
+
+<section id="careers">
+  <h2>Careers &amp; employability</h2>
+  <p class="sub">Exchange students can use everything Careers Network offers.</p>
+  <div class="grid">
+    <div class="card"><h3>Careers Network</h3><p>CVs, interviews, fairs, one-to-one appointments, international careers support.</p><a class="link" href="https://intranet.birmingham.ac.uk/student/careers/index.aspx" target="_blank" rel="noopener">Careers Network</a><a class="link" href="https://intranet.birmingham.ac.uk/student/careers/international/index.aspx" target="_blank" rel="noopener">Support for international students</a></div>
+    <div class="card"><h3>Careers Connect</h3><p>Book appointments, find events and vacancies.</p><a class="link" href="https://bham.targetconnect.net/" target="_blank" rel="noopener">bham.targetconnect.net</a></div>
+    <div class="card"><h3>WorkLink — part-time jobs on campus</h3><p>Temporary and part-time University jobs for students.</p><a class="link" href="https://intranet.birmingham.ac.uk/student/worklink/index.aspx" target="_blank" rel="noopener">WorkLink</a></div>
+    <div class="card"><h3>School of Computer Science employability</h3><p>Seminars, workshops and the CS careers fair, led by the School's Head of Employability.</p><a class="link" href="https://www.birmingham.ac.uk/schools/computer-science" target="_blank" rel="noopener">School of Computer Science</a></div>
+  </div>
+</section>
+
+<section id="involved">
+  <h2>Get involved</h2>
+  <p class="sub">350+ student groups at the Guild of Students — and the School's own societies.</p>
+  <div class="grid">
+    <div class="card"><h3>Guild of Students — all student groups</h3><a class="link" href="https://www.guildofstudents.com/studentgroups/" target="_blank" rel="noopener">guildofstudents.com/studentgroups</a><a class="link" href="https://www.guildofstudents.com/support/international/" target="_blank" rel="noopener">Guild support for international students</a></div>
+    <div class="card"><h3>International Students' Association (ISA)</h3><p>Free to join: trips, food nights, language exchange.</p><a class="link" href="https://www.guildofstudents.com/studentgroups/societies/isa/" target="_blank" rel="noopener">ISA at the Guild</a></div>
+    <div class="card"><h3>Computer Science Society (CSS)</h3><p>Hackathons, socials, industry talks, game nights.</p><a class="link" href="https://cssbham.com/" target="_blank" rel="noopener">cssbham.com</a></div>
+    <div class="card"><h3>Games Development Society</h3><a class="link" href="https://www.guildofstudents.com/organisation/gamesdevelopment/" target="_blank" rel="noopener">Games Development at the Guild</a></div>
+    <div class="card"><h3>UoB Virtual Reality (UBVR)</h3><a class="link" href="https://www.guildofstudents.com/organisation/ubvr/" target="_blank" rel="noopener">UBVR at the Guild</a></div>
+    <div class="card"><h3>Women in Tech</h3><a class="link" href="https://www.guildofstudents.com/organisation/uob-women-in-tech/" target="_blank" rel="noopener">Women in Tech at the Guild</a></div>
+    <div class="card"><h3>oSTEM (LGBTQ+ in STEM)</h3><a class="link" href="https://www.guildofstudents.com/organisation/ostem/" target="_blank" rel="noopener">oSTEM at the Guild</a></div>
+    <div class="card"><h3>Valkyrie Gamers</h3><a class="link" href="https://www.guildofstudents.com/organisation/39365/" target="_blank" rel="noopener">Valkyrie Gamers at the Guild</a></div>
+  </div>
+</section>
+
+<section id="apps">
+  <h2>Apps worth having</h2>
+  <p class="sub">University apps first; the rest make life in Birmingham easier.</p>
+  <div class="grid">
+    <div class="card"><h3>University</h3><p>MyUoB · SafeZone · Canvas Student · Outlook, Teams &amp; Microsoft Authenticator · Wisdom (UBHeard)</p></div>
+    <div class="card"><h3>Getting around</h3><p>NX Bus &amp; Swift · Trainline or National Rail · Citymapper / Google Maps · Uber or Bolt · Beryl bikes</p></div>
+    <div class="card"><h3>Money</h3><p>Monzo / Starling · Wise / Revolut · UNiDAYS, Student Beans &amp; TOTUM · Too Good To Go &amp; Olio · Splitwise</p></div>
+    <div class="card"><h3>Life &amp; wellbeing</h3><p>NHS App · Google Translate · Meetup · Vinted / Facebook Marketplace · Headspace or Calm</p></div>
+  </div>
+</section>
+
+<section id="resources">
+  <h2>Resources worth following</h2>
+  <p class="sub">Trusted, free, and written for international students.</p>
+  <div class="grid">
+    <div class="card"><h3>UKCISA</h3><p>UK Council for International Student Affairs: visas, work, fees, culture shock.</p><a class="link" href="https://www.ukcisa.org.uk" target="_blank" rel="noopener">ukcisa.org.uk</a></div>
+    <div class="card"><h3>Student Minds</h3><p>The UK student mental-health charity — homesickness, stress, looking after friends.</p><a class="link" href="https://www.studentminds.org.uk" target="_blank" rel="noopener">studentminds.org.uk</a></div>
+    <div class="card"><h3>Save the Student</h3><p>Money, banking, discounts, budgeting.</p><a class="link" href="https://www.savethestudent.org" target="_blank" rel="noopener">savethestudent.org</a></div>
+    <div class="card"><h3>Study UK (British Council)</h3><p>Life in the UK for international students.</p><a class="link" href="https://study-uk.britishcouncil.org" target="_blank" rel="noopener">study-uk.britishcouncil.org</a></div>
+    <div class="card"><h3>GOV.UK — Student visa</h3><p>Official visa conditions, including work and travel.</p><a class="link" href="https://www.gov.uk/student-visa" target="_blank" rel="noopener">gov.uk/student-visa</a></div>
+    <div class="card"><h3>Citizens Advice</h3><p>Free advice on housing, consumer and legal problems.</p><a class="link" href="https://www.citizensadvice.org.uk" target="_blank" rel="noopener">citizensadvice.org.uk</a></div>
+    <div class="card"><h3>MoneySavingExpert</h3><p>Deals, bills and student finance tips.</p><a class="link" href="https://www.moneysavingexpert.com" target="_blank" rel="noopener">moneysavingexpert.com</a></div>
+    <div class="card"><h3>Visit Birmingham</h3><p>What's on, food, day trips.</p><a class="link" href="https://visitbirmingham.com" target="_blank" rel="noopener">visitbirmingham.com</a></div>
+    <div class="card"><h3>Transport for West Midlands</h3><p>Buses, trains, trams and the Swift card.</p><a class="link" href="https://www.tfwm.org.uk" target="_blank" rel="noopener">tfwm.org.uk</a></div>
+    <div class="card"><h3>Meetup</h3><p>Hobby, language and social groups across the city.</p><a class="link" href="https://www.meetup.com" target="_blank" rel="noopener">meetup.com</a></div>
+    <div class="card"><h3>University of Birmingham on social</h3><p>@unibirmingham · @uobcompsci · @guildofstudents</p><a class="link" href="https://www.instagram.com/unibirmingham/" target="_blank" rel="noopener">Instagram: @unibirmingham</a><a class="link" href="https://www.facebook.com/uobcompsci/" target="_blank" rel="noopener">Facebook: @uobcompsci</a></div>
+  </div>
+</section>
+
+<footer>Maintained by the Director of Overseas Exchange, School of Computer Science. Links checked September 2026. Something missing or broken? Email m.bahja@bham.ac.uk.</footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
+
+<script>
+(function(){
+  var toast=document.getElementById('toast'), t;
+  function showToast(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(t);t=setTimeout(function(){toast.classList.remove('show')},1400);}
+  document.querySelectorAll('button[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var v=b.getAttribute('data-copy');
+      var code=b.parentElement.querySelector('code');
+      function fallback(){ try{var r=document.createRange();r.selectNodeContents(code);var s=window.getSelection();s.removeAllRanges();s.addRange(r);showToast('Selected — press copy');}catch(e){} }
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(function(){showToast('Copied '+v)},fallback);}else{fallback();}
+    });
+  });
+  var q=document.getElementById('q');
+  var cards=Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var sections=Array.prototype.slice.call(document.querySelectorAll('section'));
+  function filter(){
+    var s=q.value.trim().toLowerCase();
+    cards.forEach(function(c){c.classList.toggle('hidden-by-search', s && c.textContent.toLowerCase().indexOf(s)<0);});
+    sections.forEach(function(sec){var any=sec.querySelectorAll('.card:not(.hidden-by-search)').length>0;sec.classList.toggle('hidden-by-search',!any);});
+  }
+  q.addEventListener('input',filter);
+})();
+</script>
+
+</body>
+</html>
